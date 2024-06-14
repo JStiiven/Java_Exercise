@@ -1,0 +1,139 @@
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
+
+public class Procesos {
+	String nombre="";
+	int edad=0;
+	HashMap<String, Integer> estudiante;
+	
+	public Procesos (){
+		estudiante = new HashMap<String, Integer>();
+		iniciar();
+	}
+
+	private void iniciar() {
+		String menu="Menu de Estudiantes!\n\n";
+		menu+="1. Ingresar un estudiante\n";
+		menu+="2. Nombre de todos los estudiantes registrados\n";
+		menu+="3. Lista de todos los estudiantes con sus edades\n";
+		menu+="4. Suma de todas las edades\n";
+		menu+="5. Promedio de edades de estudiantes\n";
+		menu+="6. Estudiantes mayores de edad\n";
+		menu+="7. Consultar estudiante por nombre\n";
+		menu+="8. Salir\n";
+		menu+="Ingrese un numero";
+		int opc=0;
+		do {
+			opc=Integer.parseInt(JOptionPane.showInputDialog(menu));
+			presentarMenu(opc);
+		} while (opc!=8);
+		
+	}
+	public void presentarMenu(int opc) {
+		switch (opc) {
+		case 1:
+			ingresarEstudiantes();
+			break;
+		case 2:
+			mostrarNombreTodosEstudiantes();
+			break;
+		case 3:
+			listaEstudianteEdades();
+			break;
+		case 4:
+			sumaEdades();
+			break;
+		case 5:
+			promedioEdades();
+			break;
+		case 6:
+			estudiantesMayorEdad();
+			break;
+		case 7:
+			conscultarEstudiantePorNombre();
+			break;
+		case 8:
+			JOptionPane.showMessageDialog(null, "Saliendo...");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Error, digite algo valido!");
+			break;
+		}
+	}
+
+	private void conscultarEstudiantePorNombre() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void estudiantesMayorEdad() {
+		int contador=0;
+		if (edad >= 18) {
+			for (Map.Entry<String, Integer> salida : estudiante.entrySet()) {
+				contador++;
+			}
+		}
+	}
+
+	private void promedioEdades() {
+		if (!estudiante.isEmpty()) {
+			int sumEdades=0;
+			double prom=0;
+			for (Map.Entry<String, Integer> salida : estudiante.entrySet()) {
+				sumEdades+=salida.getValue();
+				prom=sumEdades/estudiante.size();			
+		}
+			JOptionPane.showMessageDialog(null, prom);
+		} else {
+			JOptionPane.showMessageDialog(null, "No hay ningun estudiante registrado para sacar el promedio de edades!!");
+		}
+	}
+
+	private void sumaEdades() {
+		if (!estudiante.isEmpty()) {
+			int sumEdades=0;
+			for (Map.Entry<String, Integer> salida : estudiante.entrySet()) {
+				sumEdades+=salida.getValue();
+			}
+			JOptionPane.showMessageDialog(null, sumEdades);			
+		} else {
+			JOptionPane.showMessageDialog(null, "No hay ningun estudiante registrado para sacar la suma de edades!!");
+		}
+	}
+
+	private void mostrarNombreTodosEstudiantes() {
+		if (!estudiante.isEmpty()) {
+			StringBuilder salidaString= new StringBuilder("Estudiantes registrados:\n");
+			for (Map.Entry<String, Integer> salida: estudiante.entrySet()) {
+				salidaString.append(salida.getKey()).append(":");
+			}
+			JOptionPane.showMessageDialog(null, salidaString.toString());
+		} else {
+			JOptionPane.showMessageDialog(null, "No hay estudiantes registrados!!");
+		}
+		
+	}
+
+	 private void listaEstudianteEdades() {
+	        if (!estudiante.isEmpty()) {
+	            StringBuilder lista = new StringBuilder("Estudiantes registrados:\n");
+	            for (Map.Entry<String, Integer> salida : estudiante.entrySet()) {
+	                lista.append(salida.getKey()).append(": ").append(salida.getValue()).append(" años\n");
+	            }
+	            JOptionPane.showMessageDialog(null, lista.toString());
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No hay estudiantes registrados!!");
+	        }
+	    }
+
+	private void ingresarEstudiantes() {
+		nombre=JOptionPane.showInputDialog("Ingresar nombre estudiante");
+		edad=Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del estudiante"));
+		estudiante.put(nombre, edad);
+	}
+
+	
+}
